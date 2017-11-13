@@ -5,6 +5,17 @@ Created on Thu Jun  8 08:58:07 2017
 @author: ymamo
 """
 
+'''
+KEY PARAMETERS
+
+in make)subnets function - diff calculation, last variable (.95 really matters)
+diff = self.population.ref[each]['affinity'] +((newpref - self.population.ref[each]['affinity'])*0.95)
+
+in po_eu function and new power * 1.10 (effectively marginal efficiencies gained also really matters)
+
+see lines ~141, ~251, ~294 
+
+'''
 import Groups
 import networkx as nx    
 import matplotlib.pyplot as plt    
@@ -13,7 +24,7 @@ import pandas as pd
     
     
 class Attachment(object): 
-    
+
     '''
     Tasks:
         1. Establish two networks graphs based on agent attributes
@@ -23,7 +34,7 @@ class Attachment(object):
     Purpose: Pass in the agents and specificed attributes and run through
              the bilateral Shapely value
     '''
-
+    
     def __init__(self, comp, efficiencies, t):
        
        # excute calss to read in tribes and attributes to graph for reference
@@ -48,12 +59,12 @@ class Attachment(object):
     '''
     
     def make_subnets(self, tribename, node1, node2, newpref):
-        
         '''
         Tasks:
             1. Make network graph of each coalition
             2. Store each agents power and preference variables
-        '''
+        '''       
+        
         
         #empty list to track groups in subnetwork
         tribe_list = []
@@ -92,14 +103,14 @@ class Attachment(object):
             self.subnets.pop(node2)
             
     def output(self, comp, efficiencies, t):
-      
+        
        '''
        Tasks: 
            1. Create lists to caputre values
            2. Seperate Groups which coalesced and those which did not
            3. Place in a dtaframe for easy saving to csv
-       '''
-        
+       ''' 
+      
        r = ["NEW RUN"]
        c =["NEW RUN"]
        eff = ["NEW RUN"]
@@ -154,6 +165,7 @@ class Attachment(object):
        return output
                     
     def out2(self, comp, efficiencies,t):
+        
         '''
         Save subnetwroks for analysis
         '''
@@ -163,12 +175,14 @@ class Attachment(object):
         eff = ["NEW RUN"]
         names = ["NEW RUN"]
         power = ["NEW RUN"]
+        affinity = ["NEW RUN"]
         for node in list(self.population.groups.nodes(data=True)):
                c.append(comp)
                eff.append(efficiencies)
                names.append(node[0])
                power.append(node[1]['power'])
-        output = pd.DataFrame({"Run" : t, "Compromise": c, "Efficieny": eff, "Groups" : names, "Power" : power,})
+               affinity.append(node[1]['affinity'])
+        output = pd.DataFrame({"Run" : t, "Compromise": c, "Efficieny": eff, "Groups" : names, "Power" : power, "Affinity" : affinity})
         
         return output
     
@@ -209,7 +223,7 @@ class Attachment(object):
                    # * 1.10 is an marignal gain based on benefits form alliance - think economy of scale
                    #second half (1 - (abs(d1...) based on SEMPro -Zining, Abdollohian...) 
                    #print (n1, d1, n2, d2)
-                   pot_eu = (((d1['power'] +d2['power'])))
+                   pot_eu = (((d1['power'] +d2['power'])* self.efficiencies)) *(1 - (abs(d1['affinity'] - d2['affinity'])))
                    #print (pot_eu)
                    #determine bilateral shapely value for both agents
                    shape1 = 0.5*d1['power'] + 0.5*(pot_eu -(d2['power']))
@@ -371,7 +385,8 @@ class Attachment(object):
 
          Purpose: Ensure each agent in the colation still wants to belong
          '''
-        
+         
+         
          dis = []
          keys = []
          c = 0
@@ -379,7 +394,7 @@ class Attachment(object):
              for group in sub.nodes(data = True):
                  #print (nets.node[key]['power'])
                  #print (list(sub.nodes()), group[0])
-                 pot_eu = (((nets.node[key]['power'] +group[1]['power'])))
+                 pot_eu = (((nets.node[key]['power'] +group[1]['power'])* self.efficiencies))*(1 - (abs(nets.node[key]['affinity'] - group[1]['affinity'])))
                  #print (pot_eu)
                  #determine bilateral shapely value for both agents
                  shape1 = 0.5*nets.node[key]['power'] + 0.5*(pot_eu -(group[1]['power']))
@@ -519,12 +534,12 @@ if __name__ == '__main__':
     
     '''
     initiates model over parameters 
-    '''
+    '''    
     
     tribes = []
     results = []
     comps = [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.00]
-    eff  = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 3, 4, 5, 6, 7]
+    eff  = [1.1, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.7, 1.8, 1.9, 2.0, 3]
     #comps = [.96]
     #eff = [4]
     
@@ -542,8 +557,8 @@ if __name__ == '__main__':
             plt.show()
     out = pd.concat(results, ignore_index= True)
     out2 = pd.concat(tribes, ignore_index=True)
-    out.to_csv( "allianceresults_readjusted-no params" + '.csv', encoding = 'utf-8')
-    out2.to_csv("alliancetribes_redjusted__no params" + ".csv", encoding = 'utf-8')
+    out.to_csv( "allianceresults_many" + '.csv', encoding = 'utf-8')
+    out2.to_csv("alliancetribes_many" + ".csv", encoding = 'utf-8')
     
     
            

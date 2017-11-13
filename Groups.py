@@ -20,7 +20,7 @@ class groups_est(object):
 
     def read_in(self): 
     
-        group_data = pd.read_csv("Groups.csv")
+        group_data = pd.read_csv("Groups_Support_Many.csv")
         
         #put group data in list
         group_names = group_data["Tribe"].tolist()
