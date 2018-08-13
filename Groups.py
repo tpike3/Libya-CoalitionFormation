@@ -96,13 +96,14 @@ class groups_est(object):
         return net
             
     def refdict(self, group_names, affinity, power):
-         '''
+        
+        '''
         create reference dictionary from csv read in assessment of group attributes
         replicates initial dictionary so groups original preference and power are retained. 
         '''
-        
-        
+               
         ref = {}
+        
         for group in group_names: 
             ref[group] = {'affinity': 0, 'power': 0}
             ref[group]['affinity'] = affinity[group_names.index(group)]
