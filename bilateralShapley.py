@@ -6,14 +6,11 @@ Created on Thu Jun  8 08:58:07 2017
 """
 
 '''
-KEY PARAMETERS
+Libya Coalition Model used in Journal of Policy and Complex Systems" (Fall 2018)
 
-in make)subnets function - diff calculation, last variable (.95 really matters)
-diff = self.population.ref[each]['affinity'] +((newpref - self.population.ref[each]['affinity'])*0.95)
+This module runs the simulation
 
-in po_eu function and new power * 1.10 (effectively marginal efficiencies gained also really matters)
-
-see lines ~141, ~251, ~294 
+Groups.py read_in function controls which set of inputs is read by the model
 
 '''
 import Groups

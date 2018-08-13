@@ -20,6 +20,14 @@ class groups_est(object):
 
     def read_in(self): 
     
+        '''
+        Read in csv files of tribe data line 32 controls which parameters are read in
+        
+        affinity provides the preference varibale
+        
+        economic and military are combined to form the power variable       
+        
+        '''
         group_data = pd.read_csv("Groups_Support_Many.csv")
         
         #put group data in list
@@ -61,9 +69,10 @@ class groups_est(object):
     
     
     def net(self, group_names, affinity, power): 
-        
-        #create data in from csv assessment of group affinity
-        
+        '''
+        create graph from csv read in assessment of group attributes
+        uses Network X to create initial graph of agents
+        '''
         
         #print (power)
         #create graph
@@ -87,6 +96,11 @@ class groups_est(object):
         return net
             
     def refdict(self, group_names, affinity, power):
+         '''
+        create reference dictionary from csv read in assessment of group attributes
+        replicates initial dictionary so groups original preference and power are retained. 
+        '''
+        
         
         ref = {}
         for group in group_names: 
