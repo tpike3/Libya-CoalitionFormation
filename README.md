@@ -6,7 +6,7 @@ Model is designed to assess the impact of foreign aid on the Libyan civil war.
 **To Run:** bilateralShapley.py runs the model. The "if __name__ == '__main__':" line 530 of the module runs the program. Output is saved to the
 2 csv files indicated in lines 557 and 558.  
 
-**Change the Read In**
+**Change Inputs:**
 The read in file needs to be updated in the Group.py file  if the users wants to change from no aid to aid to one group to aid to three groups. (line 31)
 
 
