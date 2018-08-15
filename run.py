@@ -32,9 +32,9 @@ for x in comps:
         tribes.append(tris)
         t += 1
         print (t)
-        plt.clf()
-        nx.draw(test.population.groups)
-        plt.show()
+        #plt.clf()
+        #nx.draw(test.population.groups)
+        #plt.show()
 out = pd.concat(results, ignore_index= True)
 out2 = pd.concat(tribes, ignore_index=True)
 out.to_csv( "allianceresults_many" + '.csv', encoding = 'utf-8')
