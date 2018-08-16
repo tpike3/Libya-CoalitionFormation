@@ -4,9 +4,10 @@ Code used for Journal of Policy and Complex Systems (Fall 2018). *Integrating Co
 Model is designed to assess the impact of foreign aid on the Libyan civil war. 
 
 **To Run:**   
-1. Clone or download
-2. pip install -r requirements.txt
-3. execute run.py module
+1. (recommended) set up a new environment
+2. Clone or download
+3. pip install -r requirements.txt
+4. execute run.py module
 
 **Change Inputs:**
 If the users wants to change from no aid to aid to one group to aid to three groups change the tribal_input variable on line 23
