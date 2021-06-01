@@ -14,6 +14,6 @@ requests==2.19.1
 six==1.11.0
 tornado==4.5.3
 tqdm==4.19.5
-urllib3==1.23
+urllib3==1.26.5
 wincertstore==0.2
 yarg==0.1.9
